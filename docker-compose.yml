@@ -101,4 +101,3 @@ volumes:
 networks:
   portainer_default:
     external: true
-
