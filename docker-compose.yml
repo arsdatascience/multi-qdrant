@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  qdrant_penal:
+    image: qdrant/qdrant:latest
+    container_name: qdrant-penal
+    restart: always
+    environment:
+      - QDRANT__SERVICE__API_KEY=${API_KEY_PENAL}
+    volumes:
+      - qdrant_penal_data:/qdrant/storage
+    networks:
+      - portainer_default
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.qdrant-penal.rule=Host(`qdrant-penal.aiiam.com.br`)
+      - traefik.http.routers.qdrant-penal.entrypoints=websecure
+      - traefik.http.routers.qdrant-penal.tls.certresolver=letsencrypt
+      - traefik.http.services.qdrant-penal.loadbalancer.server.port=6333
+      - traefik.http.routers.qdrant-penal.middlewares=auth@file
+
+  qdrant_agrario:
+    image: qdrant/qdrant:latest
+    container_name: qdrant-agrario
+    restart: always
+    environment:
+      - QDRANT__SERVICE__API_KEY=${API_KEY_AGRARIO}
+    volumes:
+      - qdrant_agrario_data:/qdrant/storage
+    networks:
+      - portainer_default
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.qdrant-agrario.rule=Host(`qdrant-agrario.aiiam.com.br`)
+      - traefik.http.routers.qdrant-agrario.entrypoints=websecure
+      - traefik.http.routers.qdrant-agrario.tls.certresolver=letsencrypt
+      - traefik.http.services.qdrant-agrario.loadbalancer.server.port=6333
+      - traefik.http.routers.qdrant-agrario.middlewares=auth@file
+
+  qdrant_civil:
+    image: qdrant/qdrant:latest
+    container_name: qdrant-civil
+    restart: always
+    environment:
+      - QDRANT__SERVICE__API_KEY=${API_KEY_CIVIL}
+    volumes:
+      - qdrant_civil_data:/qdrant/storage
+    networks:
+      - portainer_default
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.qdrant-civil.rule=Host(`qdrant-civil.aiiam.com.br`)
+      - traefik.http.routers.qdrant-civil.entrypoints=websecure
+      - traefik.http.routers.qdrant-civil.tls.certresolver=letsencrypt
+      - traefik.http.services.qdrant-civil.loadbalancer.server.port=6333
+      - traefik.http.routers.qdrant-civil.middlewares=auth@file
+
+  qdrant_trabalhista:
+    image: qdrant/qdrant:latest
+    container_name: qdrant-trabalhista
+    restart: always
+    environment:
+      - QDRANT__SERVICE__API_KEY=${API_KEY_TRABALHISTA}
+    volumes:
+      - qdrant_trabalhista_data:/qdrant/storage
+    networks:
+      - portainer_default
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.qdrant-trabalhista.rule=Host(`qdrant-trabalhista.aiiam.com.br`)
+      - traefik.http.routers.qdrant-trabalhista.entrypoints=websecure
+      - traefik.http.routers.qdrant-trabalhista.tls.certresolver=letsencrypt
+      - traefik.http.services.qdrant-trabalhista.loadbalancer.server.port=6333
+      - traefik.http.routers.qdrant-trabalhista.middlewares=auth@file
+
+  qdrant_tributario:
+    image: qdrant/qdrant:latest
+    container_name: qdrant-tributario
+    restart: always
+    environment:
+      - QDRANT__SERVICE__API_KEY=${API_KEY_TRIBUTARIO}
+    volumes:
+      - qdrant_tributario_data:/qdrant/storage
+    networks:
+      - portainer_default
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.qdrant-tributario.rule=Host(`qdrant-tributario.aiiam.com.br`)
+      - traefik.http.routers.qdrant-tributario.entrypoints=websecure
+      - traefik.http.routers.qdrant-tributario.tls.certresolver=letsencrypt
+      - traefik.http.services.qdrant-tributario.loadbalancer.server.port=6333
+      - traefik.http.routers.qdrant-tributario.middlewares=auth@file
+
+volumes:
+  qdrant_penal_data:
+  qdrant_agrario_data:
+  qdrant_civil_data:
+  qdrant_trabalhista_data:
+  qdrant_tributario_data:
+
+networks:
+  portainer_default:
+    external: true
